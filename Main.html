@@ -40,12 +40,41 @@
       background-color: #12372a;
       padding: 10px;
       text-align: center;
+      position: relative;
     }
   
     nav a {
       color: white;
       margin: 0 15px;
       text-decoration: none;
+    }
+
+    #keranjang-nav {
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      background-color: #ffffff;
+      color: #000;
+      border: 2px solid #226f54;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      padding: 10px;
+      width: 250px;
+      z-index: 1000;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    #checkout-btn {
+      margin-top: 10px;
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #226f54;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
   
     .container {
@@ -70,8 +99,14 @@
       max-width: 100%;
       height: auto;
       border-radius: 5px;
+      cursor: pointer;
     }
   
+    #keranjang-total {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
     footer {
       background-color: #226f54;
       color: white;
@@ -81,46 +116,92 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <img src="Assets/Logo Tanpa BG.png" alt="Logo IkaninAja" class="logo">
-    <h1>IkaninAja</h1>
-    <!-- > 
-     <p>Jual Ikan Laut Segar Langsung dari Kapal</p>
-    -->
+    <div class="header-text">
+      <h1>IkaninAja</h1>
+      <!-- > 
+       <p>Jual Ikan Laut Segar Langsung dari Kapal</p>
+      -->
+      <p style="margin-top: -10px;">Ikan Laut Segar Langsung dari Kapal</p>
+    </div>
   </header>
+
   <nav>
     <a href="#">Beranda</a>
     <a href="#produk">Produk</a>
     <a href="#kontak">Kontak</a>
+    <div id="keranjang-nav">
+      <strong>Keranjang:</strong>
+      <ul id="isiKeranjang"></ul>
+      <div id="keranjang-total">Total: 0 kg - Rp 0</div>
+      <button id="checkout-btn" onclick="window.location.href='checkout.html'">Checkout</button>
+    </div>
   </nav>
+
   <div class="container" id="produk">
     <h2>Daftar Ikan Segar</h2>
     <div class="produk">
      
         <div class="card">
-        <img src="https://cdn.pixabay.com/photo/2012/12/11/11/57/tuna-69317_640.jpg" alt="Ikan Tuna">
+        <img src="https://cdn.pixabay.com/photo/2012/12/11/11/57/tuna-69317_640.jpg" alt="Ikan Tuna" onclick="tambahKeKeranjang('Ikan Tuna', 45000)">
         <h3>Ikan Tuna</h3>
         <p>Rp 45.000 / kg</p>
       </div>
      
       <div class="card">
-        <img src="https://fahum.umsu.ac.id/blog/wp-content/uploads/2024/12/manfaat-ikan-kakap-untuk-kesehatan-tubuh.webp" alt="Ikan Kakap">
+        <img src="https://fahum.umsu.ac.id/blog/wp-content/uploads/2024/12/manfaat-ikan-kakap-untuk-kesehatan-tubuh.webp" alt="Ikan Kakap" onclick="tambahKeKeranjang('Ikan Kakap', 50000)">
         <h3>Ikan Kakap</h3>
         <p>Rp 50.000 / kg</p>
       </div>
       
       <div class="card">
-        <img src="https://res.cloudinary.com/dk0z4ums3/image/upload/v1700209712/attached_image/ikan-kembung-kandungan-manfaat-dan-cara-mengolahnya.jpg" alt="Ikan Kembung">
+        <img src="https://res.cloudinary.com/dk0z4ums3/image/upload/v1700209712/attached_image/ikan-kembung-kandungan-manfaat-dan-cara-mengolahnya.jpg" alt="Ikan Kembung" onclick="tambahKeKeranjang('Ikan Kembung', 30000)">
         <h3>Ikan Kembung</h3>
         <p>Rp 30.000 / kg</p>
-      
+      </div>
+
+      <div class="card">
+        <img src="https://asset.kompas.com/crops/8TU7jV4G_3op6v3_GtCx27N7lS4=/0x0:0x0/1200x800/data/photo/2021/06/27/60d7ec121a2b3.jpg" alt="Cumi-Cumi" onclick="tambahKeKeranjang('Cumi-Cumi', 60000)">
+        <h3>Cumi-Cumi</h3>
+        <p>Rp 60.000 / kg</p>
+      </div>
     </div>
     </div>
   </div>
+
   <footer id="kontak">
     <p>Hubungi kami: ikaninja@laut.com | +62 877 1025 4494</p>
     <p>&copy; 2025 IkaninAja. Semua Hak Dilindungi.</p>
   </footer>
+
+  <script>
+    let totalBerat = 0;
+    let totalHarga = 0;
+    let keranjang = {};
+
+    function tambahKeKeranjang(namaProduk, hargaPerKg) {
+      if (!keranjang[namaProduk]) {
+        keranjang[namaProduk] = { jumlah: 1, harga: hargaPerKg };
+
+        const list = document.getElementById('isiKeranjang');
+        const itemBaru = document.createElement('li');
+        itemBaru.id = `item-${namaProduk}`;
+        itemBaru.textContent = `${namaProduk} - 1 kg`;
+        list.appendChild(itemBaru);
+      } else {
+        keranjang[namaProduk].jumlah += 1;
+        document.getElementById(`item-${namaProduk}`).textContent = `${namaProduk} - ${keranjang[namaProduk].jumlah} kg`;
+      }
+
+      totalBerat += 1;
+      totalHarga += hargaPerKg;
+
+      document.getElementById('keranjang-total').textContent = `Total: ${totalBerat} kg - Rp ${totalHarga.toLocaleString('id-ID')}`;
+    }
+  </script>
+
 </body>
 </html>
