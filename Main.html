@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IkaninAja - Jual Ikan Laut Segar</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f8ff;
+      color: #333;
+    }
+    
+    header {
+      background-color: #226f54;
+      color: white;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    header img.logo {
+      height: 80px;
+    }
+    
+    header .header-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+  
+    nav {
+      background-color: #12372a;
+      padding: 10px;
+      text-align: center;
+    }
+  
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+  
+    .container {
+      padding: 20px;
+    }
+  
+    .produk {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+  
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+    }
+  
+    .card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+  
+    footer {
+      background-color: #226f54;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="Assets/Logo Tanpa BG.png" alt="Logo IkaninAja" class="logo">
+    <h1>IkaninAja</h1>
+    <!-- > 
+     <p>Jual Ikan Laut Segar Langsung dari Kapal</p>
+    -->
+  </header>
+  <nav>
+    <a href="#">Beranda</a>
+    <a href="#produk">Produk</a>
+    <a href="#kontak">Kontak</a>
+  </nav>
+  <div class="container" id="produk">
+    <h2>Daftar Ikan Segar</h2>
+    <div class="produk">
+     
+        <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2012/12/11/11/57/tuna-69317_640.jpg" alt="Ikan Tuna">
+        <h3>Ikan Tuna</h3>
+        <p>Rp 45.000 / kg</p>
+      </div>
+     
+      <div class="card">
+        <img src="https://fahum.umsu.ac.id/blog/wp-content/uploads/2024/12/manfaat-ikan-kakap-untuk-kesehatan-tubuh.webp" alt="Ikan Kakap">
+        <h3>Ikan Kakap</h3>
+        <p>Rp 50.000 / kg</p>
+      </div>
+      
+      <div class="card">
+        <img src="https://res.cloudinary.com/dk0z4ums3/image/upload/v1700209712/attached_image/ikan-kembung-kandungan-manfaat-dan-cara-mengolahnya.jpg" alt="Ikan Kembung">
+        <h3>Ikan Kembung</h3>
+        <p>Rp 30.000 / kg</p>
+      
+    </div>
+    </div>
+  </div>
+  <footer id="kontak">
+    <p>Hubungi kami: ikaninja@laut.com | +62 877 1025 4494</p>
+    <p>&copy; 2025 IkaninAja. Semua Hak Dilindungi.</p>
+  </footer>
+</body>
+</html>
