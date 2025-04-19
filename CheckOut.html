@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout</title>
+  <Style>
+     body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f8ff;
+      color: #333;
+    }
+    
+    header {
+      background-color: #226f54;
+      color: white;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    header img.logo {
+      height: 80px;
+    }
+    
+    header .header-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 30px auto;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-container input[type="text"],
+    .form-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 80px;
+    }
+
+    #senddata-btn {
+      margin-top: 10px;
+      display: block;
+      width: 50%;
+      padding: 10px;
+      background-color: #226f54;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    nav {
+      background-color: #12372a;
+      padding: 10px;
+      text-align: center;
+      position: relative;
+    }
+  
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+
+    .summary-list {
+      max-width: 600px;
+      margin: 10px auto;
+      padding-left: 20px;
+    }
+
+    .summary-total {
+      max-width: 600px;
+      margin: 10px auto;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    footer {
+      background-color: #226f54;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 3rem;
+    }
+  </Style>
+</head>
+
+<body>
+    <header>
+        <img src="Assets/Logo Tanpa BG.png" alt="Logo IkaninAja" class="logo">
+        <div class="header-text">
+        <h1>IkaninAja</h1>
+        <!-- > 
+            <p>Jual Ikan Laut Segar Langsung dari Kapal</p>
+        -->
+        <p style="margin-top: -10px;">Ikan Laut Segar Langsung dari Kapal</p>
+    </div>
+    </header>
+
+    <nav>
+        <a href="Beranda.html">Beranda</a>
+        <a href="Main.html">Produk</a>
+        <a href="#kontak">Kontak</a>
+    </nav>
+
+    <div class="form-container">
+        <h2>Data Pembeli</h2>
+        <form action="checkout.php" method="POST" id="checkoutForm">
+          <label for="nama">Nama Pembeli</label>
+          <input type="text" name="nama" id="nama" placeholder="Masukkan nama lengkap" required>
+    
+          <label for="alamat">Alamat Lengkap</label>
+          <textarea name="alamat" id="alamat" placeholder="Masukkan alamat lengkap" required></textarea>
+    
+          <label for="telepon">Nomor Telepon</label>
+          <input type="text" name="telepon" id="telepon" placeholder="Masukkan nomor Whatsapp" required>
+    
+          <input type="hidden" name="dataKeranjang" id="dataKeranjang">
+        </form>
+      </div>
+    
+      <h3 style="text-align: center;">Ringkasan Pesanan</h3>
+      <ul id="ringkasan" class="summary-list"></ul>
+      <p id="total" class="summary-total"></p>
+    
+  <button id= "senddata-btn" onclick="kirimDetailPembalian()">Pesan</button>
+  <div>
+  </div>
+  
+  <footer id="kontak">
+    <p>Hubungi kami: ikaninja@laut.com | +62 877 1025 4494</p>
+    <p>&copy; 2025 IkaninAja. Semua Hak Dilindungi.</p>
+  </footer>
+  
+  <script>
+    // Ambil data keranjang dari localStorage
+    const dataCheckout = JSON.parse(localStorage.getItem('checkoutData'));
+    if (dataCheckout) {
+      const ringkasan = document.getElementById('ringkasan');
+      for (const nama in dataCheckout.keranjang) {
+        const item = dataCheckout.keranjang[nama];
+        const li = document.createElement('li');
+        li.textContent = `${nama} - ${item.jumlah} kg x Rp ${item.harga.toLocaleString('id-ID')}`;
+        ringkasan.appendChild(li);
+      }
+      document.getElementById('total').textContent = `Total: ${dataCheckout.totalBerat} kg - Rp ${dataCheckout.totalHarga.toLocaleString('id-ID')}`;
+      document.getElementById('dataKeranjang').value = JSON.stringify(dataCheckout);
+    }
+
+    function kirimDetailPembalian() {
+        const nama = document.getElementById('nama').value;
+        const alamat = document.getElementById('alamat').value;
+        const telepon = document.getElementById('telepon').value;
+
+
+        if (!nama || !alamat || !telepon) {
+      alert('Mohon lengkapi data pembeli terlebih dahulu.');
+      return;
+    }
+
+    let pesan = `Halo, saya telah melakukan pembelian produk dari IkaninAja.\n\n`;
+    pesan += `Mohon bantuan-nya  untuk memproses pesanan dengan detail sebagai berikut\n\n`
+    pesan += `Nama: ${nama}\nAlamat: ${alamat}\nTelepon: ${telepon}\n\n`;
+    pesan += `=========================\n`
+    pesan += `   Detail Pesanan:\n`;
+
+    for (const namaProduk in dataCheckout.keranjang) {
+      const item = dataCheckout.keranjang[namaProduk];
+      pesan += `      - ${namaProduk} ${item.jumlah} kg\n`;
+    }
+
+    pesan += `\n   Total: Rp ${dataCheckout.totalHarga.toLocaleString('id-ID')}\n`;
+    pesan += `=========================\n`
+
+    const nomorAdmin = '6287710254494';
+    const url = `https://wa.me/${nomorAdmin}?text=${encodeURIComponent(pesan)}`;
+
+    window.open(url, '_blank');
+  }
+
+  </script>
+</body>
+</html>

@@ -112,7 +112,7 @@
       color: white;
       text-align: center;
       padding: 15px;
-      margin-top: 30px;
+      margin-top: 9.5rem;
     }
   </style>
 </head>
@@ -130,14 +130,19 @@
   </header>
 
   <nav>
-    <a href="#">Beranda</a>
-    <a href="#produk">Produk</a>
+    <a href="Beranda.html">Beranda</a>
+    <a href="Main.html">Produk</a>
     <a href="#kontak">Kontak</a>
     <div id="keranjang-nav">
       <strong>Keranjang:</strong>
       <ul id="isiKeranjang"></ul>
       <div id="keranjang-total">Total: 0 kg - Rp 0</div>
-      <button id="checkout-btn" onclick="window.location.href='checkout.html'">Checkout</button>
+      <!--
+        <button id="checkout-btn" onclick="window.location.href='checkout.html'">Checkout</button>
+      -->
+    
+      <button id="checkout-btn" onclick="kirimKeCheckout()">Checkout</button>
+
     </div>
   </nav>
 
@@ -173,7 +178,7 @@
   </div>
 
   <footer id="kontak">
-    <p>Hubungi kami: ikaninja@laut.com | +62 877 1025 4494</p>
+    <p>Jika anda mengalami masalah, anda dapat menghubungi kami pada Menu 'Kontak'</p>
     <p>&copy; 2025 IkaninAja. Semua Hak Dilindungi.</p>
   </footer>
 
@@ -201,7 +206,20 @@
 
       document.getElementById('keranjang-total').textContent = `Total: ${totalBerat} kg - Rp ${totalHarga.toLocaleString('id-ID')}`;
     }
+
+    function kirimKeCheckout() {
+      const dataCheckout = {
+        keranjang: keranjang,
+        totalBerat: totalBerat,
+        totalHarga: totalHarga
+      };
+  // Simpan data ke localStorage
+    localStorage.setItem('checkoutData', JSON.stringify(dataCheckout));
+  // Arahkan ke halaman checkout
+    window.location.href = 'checkout.html';
+}
   </script>
+
 
 </body>
 </html>
