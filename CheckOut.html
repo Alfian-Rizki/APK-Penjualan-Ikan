@@ -163,11 +163,16 @@
   </div>
   
   <footer id="kontak">
-    <p>Hubungi kami: ikaninja@laut.com | +62 877 1025 4494</p>
+    <p>Jika anda mengalami masalah, anda dapat menghubungi kami pada Menu 'Kontak'</p>
     <p>&copy; 2025 IkaninAja. Semua Hak Dilindungi.</p>
   </footer>
   
   <script>
+    const encodedData = "NjI4NzcxMDI1NDQ5NA=="
+    function decodeBase64(str){
+        return atob(str);
+    }
+
     // Ambil data keranjang dari localStorage
     const dataCheckout = JSON.parse(localStorage.getItem('checkoutData'));
     if (dataCheckout) {
@@ -207,7 +212,7 @@
     pesan += `\n   Total: Rp ${dataCheckout.totalHarga.toLocaleString('id-ID')}\n`;
     pesan += `=========================\n`
 
-    const nomorAdmin = '6287710254494';
+    const nomorAdmin = decodeBase64(encodedData);
     const url = `https://wa.me/${nomorAdmin}?text=${encodeURIComponent(pesan)}`;
 
     window.open(url, '_blank');
